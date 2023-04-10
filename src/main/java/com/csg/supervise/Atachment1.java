@@ -11,6 +11,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.HashMap;
 
+/**
+ * 附件8
+ */
 public class Atachment1{
     public static HashMap tablesMap=new HashMap();
 

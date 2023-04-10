@@ -9,6 +9,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+
+/**
+ * 附件2
+ */
 public class Atachment2{
 
     private void initData1(String sourceFile,String targetFile) throws Exception {
