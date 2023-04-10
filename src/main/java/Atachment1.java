@@ -16,8 +16,8 @@ public class Atachment1{
         try {
             FileInputStream fileInputStream1 = new FileInputStream(sourceFile);
             FileInputStream fileInputStream2 = new FileInputStream(targetFile);
-            workbook1 = new XSSFWorkbook(fileInputStream1);
             workbook2 = new XSSFWorkbook(fileInputStream2);
+            workbook1 = new XSSFWorkbook(fileInputStream1);
             Sheet workbook1_sheet0 = workbook1.getSheet("Tables");
             Sheet workbook2_sheet1 = workbook2.getSheetAt(1);
             fileInputStream2.close();
@@ -90,7 +90,7 @@ public class Atachment1{
             Sheet workbook2_sheet1 = workbook2.getSheetAt(2);
             fileInputStream2.close();
 
-            //清空内容
+            //清空行内容
             Integer maxRow =workbook2_sheet1.getLastRowNum();
             for (int i=1;i<=maxRow;i++){
                 Row row=workbook2_sheet1.getRow(i);
