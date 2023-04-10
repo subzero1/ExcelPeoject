@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class Atachment1{
     public static HashMap tablesMap=new HashMap();
 
-    public void initData1(String sourceFile, String targetFile) throws Exception {
+    private void initData1(String sourceFile, String targetFile) throws Exception {
         Workbook workbook1 = null;
         Workbook workbook2 = null;
         FileOutputStream fos =null;
@@ -86,7 +86,7 @@ public class Atachment1{
         }
     }
 
-    public void initData2(String sourceFile,String targetFile) throws Exception {
+    private void initData2(String sourceFile,String targetFile) throws Exception {
         Workbook workbook1 = null;
         Workbook workbook2 = null;
         FileOutputStream fos =null;
@@ -113,8 +113,9 @@ public class Atachment1{
             for (int i = 1; i <= maxRow; i++) {
                 total=""+i;
                 Row workbook1_sheet1_row = workbook1_sheet0.getRow(i);
-                Row workbook2_sheet1_row = workbook2_sheet1.createRow(i);
                 Cell workbook1_sheet0_row_cell0 = workbook1_sheet1_row.getCell(0);//A Column: Owner
+                if (workbook1_sheet0_row_cell0 == null || StringUtil.isBlank(workbook1_sheet0_row_cell0.getStringCellValue()))
+                    continue;
                 Cell workbook1_sheet0_row_cell1 = workbook1_sheet1_row.getCell(1);//B Column: Table
                 Cell workbook1_sheet0_row_cell2 = workbook1_sheet1_row.getCell(2);//C Column: Code
                 Cell workbook1_sheet0_row_cell3 = workbook1_sheet1_row.getCell(3);//D Column: Name
@@ -122,8 +123,7 @@ public class Atachment1{
                 Cell workbook1_sheet0_row_cell5 = workbook1_sheet1_row.getCell(5);//F Column: Data Type
                 Cell workbook1_sheet0_row_cell6 = workbook1_sheet1_row.getCell(6);//G Column: Length
 
-                if (workbook1_sheet0_row_cell0 == null || StringUtil.isBlank(workbook1_sheet0_row_cell0.getStringCellValue()))
-                    continue;
+                Row workbook2_sheet1_row = workbook2_sheet1.createRow(i);
                 workbook2_sheet1_row.createCell(0).setCellValue("EKP");//A Column:*实例名或TNS
                 workbook2_sheet1_row.createCell(1).setCellValue(workbook1_sheet0_row_cell0.getStringCellValue().replace("User '", "").replace("'", ""));//B Column: *schema名称/模式名称
                 workbook2_sheet1_row.createCell(2).setCellValue(workbook1_sheet0_row_cell1.getStringCellValue());//C Column: *表代码
