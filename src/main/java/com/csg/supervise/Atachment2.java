@@ -1,3 +1,5 @@
+package com.csg.supervise;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -8,7 +10,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-public class Atachment1{
+public class Atachment2{
     public void initData1(String sourceFile,String targetFile) throws Exception {
         Workbook workbook1 = null;
         Workbook workbook2 = null;
@@ -18,13 +20,13 @@ public class Atachment1{
             FileInputStream fileInputStream2 = new FileInputStream(targetFile);
             workbook2 = new XSSFWorkbook(fileInputStream2);
             workbook1 = new XSSFWorkbook(fileInputStream1);
-            Sheet workbook1_sheet0 = workbook1.getSheet("Tables");
-            Sheet workbook2_sheet1 = workbook2.getSheetAt(1);
+            Sheet workbook1_sheet0 = workbook1.getSheet("Columns");
+            Sheet workbook2_sheet1 = workbook2.getSheet("DR01业务-数据对象清单");
             fileInputStream2.close();
 
             //清空内容
             Integer maxRow =workbook2_sheet1.getLastRowNum();
-            for (int i=2;i<=maxRow;i++){
+            for (int i=3;i<=maxRow;i++){
                 Row row=workbook2_sheet1.getRow(i);
                 if (row==null)
                     continue;
