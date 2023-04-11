@@ -9,6 +9,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 附件6
@@ -16,15 +18,13 @@ import java.io.FileOutputStream;
 public class Atachment3 {
 
     private void initData1(String sourceFile,String targetFile) throws Exception {
-        Workbook workbook1 = null;
         Workbook workbook2 = null;
         FileOutputStream fos =null;
         try {
-            FileInputStream fileInputStream1 = new FileInputStream(sourceFile);
             FileInputStream fileInputStream2 = new FileInputStream(targetFile);
-            workbook1 = new XSSFWorkbook(fileInputStream1);
             workbook2 = new XSSFWorkbook(fileInputStream2);
-            Sheet workbook1_sheet0 = workbook1.getSheet("Columns");
+            Map<String,String[]> tableMap=ExcelUtil.getAttachment8TableInfo(sourceFile,1,2);
+            List<String[]> dataList=ExcelUtil.getExcelData(sourceFile,2,1);
             Sheet workbook2_sheet1 = workbook2.getSheet("DQ01数据质量标准清单");
             fileInputStream2.close();
 
@@ -37,44 +37,53 @@ public class Atachment3 {
                 workbook2_sheet1.removeRow(row);
             }
 
-            maxRow = workbook1_sheet0.getLastRowNum();
+            maxRow = dataList.size();
             for (int i = 0; i < maxRow; i++) {
-                Row workbook1_sheet1_row = workbook1_sheet0.getRow(i+1);
-                Cell workbook1_sheet0_row_cell0 = workbook1_sheet1_row.getCell(0);//A Column: Owner
-                if (workbook1_sheet0_row_cell0 == null || StringUtil.isBlank(workbook1_sheet0_row_cell0.getStringCellValue()))
+                String[]row=dataList.get(i);
+                String row0=String.valueOf(row[0]);//A Column: *实例名或TNS
+                if (row0.equals("null")||StringUtil.isBlank(row0))
                     continue;
-                Cell workbook1_sheet0_row_cell1 = workbook1_sheet1_row.getCell(1);//B Column: Table
-                Cell workbook1_sheet0_row_cell2 = workbook1_sheet1_row.getCell(2);//C Column: Code
-                Cell workbook1_sheet0_row_cell3 = workbook1_sheet1_row.getCell(3);//D Column: Name
-//                Cell workbook1_sheet0_row_cell4 = workbook1_sheet1_row.getCell(4);//E Column: Comment
-                Cell workbook1_sheet0_row_cell5 = workbook1_sheet1_row.getCell(5);//F Column: Data Type
-//                Cell workbook1_sheet0_row_cell6 = workbook1_sheet1_row.getCell(6);//G Column: Length
+                String row1 = row[2];//B Column: *schema名称/模式名称
+                String row2 = row[2];//C Column: *表代码
+                String row3 = row[3];//D Column: *字段代码
+                String row4 = row[4];;//E Column: *字段名称
+                String row5 = row[5];;//F Column: *字段注释
+                String row6 = row[6];;//G Column: *字段类型
+                String row7 = row[7];;//H Column: *數據長度（没有请填无）
 
-                String table=workbook1_sheet0_row_cell1.getStringCellValue();
-                String busName=String.valueOf(Atachment1.tablesMap.get(table));
+                String[]tabs=tableMap.get(row2);
+                String tableName=tabs[4];//表中文名
+                String busName=tabs[2];//業務名稱
+                String a_model=tabs[7];//一級功能
+                String b_model=tabs[8];
+                String c_model=tabs[9];
+                String d_model=tabs[10];
 
                 Row workbook2_sheet1_row = workbook2_sheet1.createRow(i+3);
                 workbook2_sheet1_row.createCell(0).setCellValue((i+1));//A Column:序号
                 workbook2_sheet1_row.createCell(1).setCellValue("督查督办系统");//B Column: 系统名称
                 workbook2_sheet1_row.createCell(2).setCellValue("网级部署");//C Column: 系统部署级别
-                workbook2_sheet1_row.createCell(3).setCellValue("");//D Column: 一级功能名称
-                workbook2_sheet1_row.createCell(4).setCellValue("");//E Column: 二级功能名称
-                workbook2_sheet1_row.createCell(5).setCellValue("");//F Column:  三级功能名称
-                workbook2_sheet1_row.createCell(6).setCellValue("");//G Column:  四级功能名称
+                workbook2_sheet1_row.createCell(3).setCellValue(a_model);//D Column: 一级功能名称
+                workbook2_sheet1_row.createCell(4).setCellValue(b_model);//E Column: 二级功能名称
+                workbook2_sheet1_row.createCell(5).setCellValue(c_model);//F Column:  三级功能名称
+                workbook2_sheet1_row.createCell(6).setCellValue(d_model);//G Column:  四级功能名称
                 workbook2_sheet1_row.createCell(7).setCellValue("/");//H Column: 页面业务元素统称（非必填）
                 workbook2_sheet1_row.createCell(8).setCellValue("/");//I Column: 功能页面录入项
                 workbook2_sheet1_row.createCell(9).setCellValue("督查督办系统");//J Column: 数据来源（选择）
 
-                workbook2_sheet1_row.createCell(10).setCellValue("");//K Column: 业务对象名称
-                workbook2_sheet1_row.createCell(11).setCellValue(table);//：L Column:  对应数据表
-                workbook2_sheet1_row.createCell(12).setCellValue(busName);//：M Column:  数据表中文名
-                workbook2_sheet1_row.createCell(13).setCellValue(workbook1_sheet0_row_cell2.getStringCellValue());//：N Column:  对应数据字段
-                workbook2_sheet1_row.createCell(14).setCellValue(workbook1_sheet0_row_cell3.getStringCellValue());//：O Column:  数据字段中文名
+                workbook2_sheet1_row.createCell(10).setCellValue(busName);//K Column: 业务对象名称
+                workbook2_sheet1_row.createCell(11).setCellValue(row2);//：L Column:  对应数据表
+                workbook2_sheet1_row.createCell(12).setCellValue(tableName);//：M Column:  数据表中文名
+                workbook2_sheet1_row.createCell(13).setCellValue(row3);//：N Column:  对应数据字段
+                workbook2_sheet1_row.createCell(14).setCellValue(row4);//：O Column:  数据字段中文名
                 workbook2_sheet1_row.createCell(15).setCellValue("基础数据");//：P Column:  数据类型
                 workbook2_sheet1_row.createCell(16).setCellValue("/");//：Q Column:  统计口径
                 workbook2_sheet1_row.createCell(17).setCellValue("CSG-DB-DQ000001");//：R Column:  数据质量标准编号
                 workbook2_sheet1_row.createCell(18).setCellValue("/");//：S Column:  完整性
-                workbook2_sheet1_row.createCell(19).setCellValue("其他类:"+workbook1_sheet0_row_cell5.getStringCellValue());//：T Column:  规范性
+                String value19="其他类:"+row6;
+                if (!StringUtil.isBlank(row7))
+                    value19="其他类:"+row6+"("+row7+")";
+                workbook2_sheet1_row.createCell(19).setCellValue(value19);//：T Column:  规范性
                 workbook2_sheet1_row.createCell(20).setCellValue("/");//：U Column:  一致性
                 workbook2_sheet1_row.createCell(21).setCellValue("/");//：V Column:  及时性
                 workbook2_sheet1_row.createCell(22).setCellValue("/");//：W Column:  准确性
@@ -89,8 +98,6 @@ public class Atachment3 {
         }catch (Exception e){
             e.printStackTrace();
         }finally {
-            if (workbook1!=null)
-                workbook1.close();
             if (workbook2!=null&&fos!=null)
                 workbook2.write(fos);
             if (fos!=null){
