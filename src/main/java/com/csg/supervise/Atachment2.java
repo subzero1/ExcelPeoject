@@ -61,11 +61,11 @@ public class Atachment2{
 
                 Row workbook2_sheet1_row = workbook2_sheet1.createRow(i+3);
                 workbook2_sheet1_row.createCell(0).setCellValue((i+1));//A Column:序号
-                workbook2_sheet1_row.createCell(1).setCellValue("数字化");//B Column: 数字化
+                workbook2_sheet1_row.createCell(1).setCellValue(Main.DOMAIN_NAME);//B Column: 数字化
                 workbook2_sheet1_row.createCell(2).setCellValue(busName);//C Column: 业务对象名称
                 workbook2_sheet1_row.createCell(3).setCellValue(row4);//D Column: 业务对象信息项名称
                 workbook2_sheet1_row.createCell(4).setCellValue("/");//E Column: 所在系统页面截图
-                workbook2_sheet1_row.createCell(5).setCellValue("督查督办系统");//F Column: 系统名称
+                workbook2_sheet1_row.createCell(5).setCellValue(Main.SYSTEM_NAME);//F Column: 系统名称
                 workbook2_sheet1_row.createCell(6).setCellValue("网级部署");//G Column: 系统部署级别
                 workbook2_sheet1_row.createCell(7).setCellValue(a_model);//H Column: 一级功能名称
                 workbook2_sheet1_row.createCell(8).setCellValue(b_model);//I Column:  二级功能名称
@@ -75,7 +75,7 @@ public class Atachment2{
                 workbook2_sheet1_row.createCell(12).setCellValue(table);//：M Column:  信息项数据表中文名
                 workbook2_sheet1_row.createCell(13).setCellValue(row3);//：N Column:  信息项数据字段
                 workbook2_sheet1_row.createCell(14).setCellValue(row4);//：O Column:  信息项数据字段中文名
-                workbook2_sheet1_row.createCell(15).setCellValue(".FD_CREATOR_ID\n" + ".FD_CREATE_TIME");//：P Column:  数据责任人标识
+                workbook2_sheet1_row.createCell(15).setCellValue("FD_CREATOR_ID");//：P Column:  数据责任人标识
                 workbook2_sheet1_row.createCell(16).setCellValue("系统生成");//：Q Column:  数据来源
             }
             fos = new FileOutputStream(targetFile);
@@ -136,15 +136,15 @@ public class Atachment2{
 
                 Row workbook2_sheet1_row = workbook2_sheet1.createRow(i+1);
                 workbook2_sheet1_row.createCell(0).setCellValue((i+1));//A Column:序号
-                workbook2_sheet1_row.createCell(1).setCellValue("数字化");//B Column: 数字化
+                workbook2_sheet1_row.createCell(1).setCellValue(Main.DOMAIN_NAME);//B Column: 数字化
                 workbook2_sheet1_row.createCell(2).setCellValue(busName);//C Column: 业务对象名称
                 workbook2_sheet1_row.createCell(3).setCellValue(row4);//D Column: 业务对象信息项名称
 
 
-                workbook2_sheet1_row.createCell(4).setCellValue("督查督办系统");//E Column: 系统名称
+                workbook2_sheet1_row.createCell(4).setCellValue(Main.SYSTEM_NAME);//E Column: 系统名称
                 workbook2_sheet1_row.createCell(5).setCellValue("网级");//F Column: 单位级别
                 workbook2_sheet1_row.createCell(6).setCellValue("南方电网数字电网集团有限公司/南方电网数字企业科技（广东）有限公司/行政人资事业部/主管");//G Column: 业务归口方/岗位
-                workbook2_sheet1_row.createCell(7).setCellValue("南方电网数字电网集团有限公司/南方电网数字企业科技（广东）有限公司/行政人资事业部/主管/陈维汉(chenwh3@csg.cn)");//H Column: 业务归口方/岗位/负责人（4A账号）
+                workbook2_sheet1_row.createCell(7).setCellValue("南方电网数字电网集团有限公司/南方电网数字企业科技（广东）有限公司/行政人资事业部/主管/"+Main.MANAGER+"("+Main.MANAGER_4A+")");//H Column: 业务归口方/岗位/负责人（4A账号）
                 workbook2_sheet1_row.createCell(8).setCellValue("南方电网/数字化部/大数据科/数据管理专责");//I Column:  数据管控方/岗位
                 workbook2_sheet1_row.createCell(9).setCellValue("数据库中记录的数据创建人");//J Column:  数据录入方/岗位
             }

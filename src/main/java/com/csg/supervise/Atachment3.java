@@ -9,13 +9,13 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 附件6
  */
 public class Atachment3 {
+
 
     private void initData1(String sourceFile,String targetFile) throws Exception {
         Workbook workbook2 = null;
@@ -61,7 +61,7 @@ public class Atachment3 {
 
                 Row workbook2_sheet1_row = workbook2_sheet1.createRow(i+3);
                 workbook2_sheet1_row.createCell(0).setCellValue((i+1));//A Column:序号
-                workbook2_sheet1_row.createCell(1).setCellValue("督查督办系统");//B Column: 系统名称
+                workbook2_sheet1_row.createCell(1).setCellValue(Main.SYSTEM_NAME);//B Column: 系统名称
                 workbook2_sheet1_row.createCell(2).setCellValue("网级部署");//C Column: 系统部署级别
                 workbook2_sheet1_row.createCell(3).setCellValue(a_model);//D Column: 一级功能名称
                 workbook2_sheet1_row.createCell(4).setCellValue(b_model);//E Column: 二级功能名称
@@ -69,7 +69,7 @@ public class Atachment3 {
                 workbook2_sheet1_row.createCell(6).setCellValue(d_model);//G Column:  四级功能名称
                 workbook2_sheet1_row.createCell(7).setCellValue("/");//H Column: 页面业务元素统称（非必填）
                 workbook2_sheet1_row.createCell(8).setCellValue("/");//I Column: 功能页面录入项
-                workbook2_sheet1_row.createCell(9).setCellValue("督查督办系统");//J Column: 数据来源（选择）
+                workbook2_sheet1_row.createCell(9).setCellValue("系统生成");//J Column: 数据来源（选择）
 
                 workbook2_sheet1_row.createCell(10).setCellValue(busName);//K Column: 业务对象名称
                 workbook2_sheet1_row.createCell(11).setCellValue(row2);//：L Column:  对应数据表
@@ -81,18 +81,45 @@ public class Atachment3 {
                 workbook2_sheet1_row.createCell(17).setCellValue("CSG-DB-DQ000001");//：R Column:  数据质量标准编号
                 workbook2_sheet1_row.createCell(18).setCellValue("/");//：S Column:  完整性
                 String value19="其他类:"+row6;
-                if (!StringUtil.isBlank(row7))
-                    value19="其他类:"+row6+"("+row7+")";
+
+                if (StringUtil.isNotBlank(row4) && row4.contains("编码")) {
+                    if (row4.equals("省编码")){
+                        value19 = "编码类：附件/信息分类与编码（最新）.zip/《南方电网公司信息分类和编码标准 第5分册 人力资源管理类信息分类和编码.doc》中5.2.组织机构编码\n" +
+                                "南方电网公司及二级单位编码\n" +
+                                "000000=中国南方电网有限责任公司\n" +
+                                "010000=中国南方电网有限责任公司超高压输电公司 \n" +
+                                "020000=中国南方电网有限责任公司调峰调频发电公司 ";
+                    }else if (row4.equals("局编码")){
+                        value19 = "编码类：附件/信息分类与编码（最新）.zip/《南方电网公司信息分类和编码标准 第5分册 人力资源管理类信息分类和编码.doc》中5.2.组织机构编码 中 三级单位编码\n" +
+                                "30600=佛山供电局\n" +
+                                "31900=东莞供电局";
+                    }else{
+                        value19 = "编码类:";
+                    }
+
+                } else if ((StringUtil.isNotBlank(row4) && (
+                        row4.contains("类别")
+                                || row4.contains("类型")
+                                || row4.contains("分类")
+                                || row4.contains("方式")
+                                || row4.contains("状态")
+                                || row4.contains("标志")
+                                || row4.contains("等级")
+                                || row4.contains("是否")))) {
+                    value19 = "代码类:";
+                }else if (!StringUtil.isBlank(row7)) {
+                        value19 = "其他类:" + row6 + "(" + row7 + ")";
+                }
                 workbook2_sheet1_row.createCell(19).setCellValue(value19);//：T Column:  规范性
                 workbook2_sheet1_row.createCell(20).setCellValue("/");//：U Column:  一致性
                 workbook2_sheet1_row.createCell(21).setCellValue("/");//：V Column:  及时性
                 workbook2_sheet1_row.createCell(22).setCellValue("/");//：W Column:  准确性
                 workbook2_sheet1_row.createCell(23).setCellValue("/");//：X Column:  依据文件
                 workbook2_sheet1_row.createCell(24).setCellValue("/");//：Y Column:  依据条目（页码）
-                workbook2_sheet1_row.createCell(25).setCellValue("陈维汉");//：Z Column:  业务归口方负责人
-                workbook2_sheet1_row.createCell(26).setCellValue("chenwh3@csg.cn");//：AA Column:  4A账号
-                workbook2_sheet1_row.createCell(27).setCellValue("陆岸亮");//：AB Column:  开发负责人
-                workbook2_sheet1_row.createCell(28).setCellValue("18613039080");//：AC Column:  联系电话
+                workbook2_sheet1_row.createCell(25).setCellValue(Main.MANAGER);//：Z Column:  业务归口方负责人
+                workbook2_sheet1_row.createCell(26).setCellValue(Main.MANAGER_4A);//：AA Column:  4A账号
+                workbook2_sheet1_row.createCell(27).setCellValue(Main.DEVELOPER);//：AB Column:  开发负责人
+                workbook2_sheet1_row.createCell(28).setCellValue(Main.DEVELOPER_PHONE);//：AC Column:  联系电话
             }
             fos = new FileOutputStream(targetFile);
         }catch (Exception e){

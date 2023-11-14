@@ -40,7 +40,7 @@ public class Atachment1{
             }
 
             maxRow = workbook1_sheet0.getLastRowNum();
-            for (int i = 2; i <= maxRow; i++) {
+            for (int i = 2; i <= maxRow+1; i++) {
                 Row workbook1_sheet1_row = workbook1_sheet0.getRow(i-1);
                 Cell workbook1_sheet0_row_cell0 = workbook1_sheet1_row.getCell(0);//Owner
                 if (workbook1_sheet0_row_cell0 == null || StringUtil.isBlank(workbook1_sheet0_row_cell0.getStringCellValue()))
@@ -61,12 +61,12 @@ public class Atachment1{
 
 
                 workbook2_sheet1_row.createCell(5).setCellValue(workbook1_sheet0_row_cell3.getStringCellValue());//F Column: *表注释
-                workbook2_sheet1_row.createCell(6).setCellValue("更改");//G Column:*操作类型
+                workbook2_sheet1_row.createCell(6).setCellValue("新增");//G Column:*操作类型
                 workbook2_sheet1_row.createCell(7).setCellValue("");//H Column:*一级功能名称
                 workbook2_sheet1_row.createCell(8).setCellValue("");//I Column:*二级功能名称
                 workbook2_sheet1_row.createCell(9).setCellValue("");//J Column:*三级功能名称
                 workbook2_sheet1_row.createCell(10).setCellValue("无");//K Column:*四级功能名称
-                workbook2_sheet1_row.createCell(11).setCellValue("运维部门");//L Column:*数据责任部门
+                workbook2_sheet1_row.createCell(11).setCellValue("办公厅（党组办公室、董事会办公室）");//L Column:*数据责任部门
                 workbook2_sheet1_row.createCell(12).setCellValue("数据岗");//M Column:*数据责任岗位（不清楚的请填无）
                 workbook2_sheet1_row.createCell(13).setCellValue("不涉密");//N Column:*密级（不涉密/核心商密/普通商密/工作秘密/敏感信息）
                 workbook2_sheet1_row.createCell(14).setCellValue("√");//O Column:总部
@@ -132,7 +132,20 @@ public class Atachment1{
                 workbook2_sheet1_row.createCell(2).setCellValue(workbook1_sheet0_row_cell1.getStringCellValue());//C Column: *表代码
                 workbook2_sheet1_row.createCell(3).setCellValue(workbook1_sheet0_row_cell2.getStringCellValue());//D Column: *字段代码
                 workbook2_sheet1_row.createCell(4).setCellValue(workbook1_sheet0_row_cell3.getStringCellValue());//E Column: *字段名称
-                workbook2_sheet1_row.createCell(5).setCellValue(workbook1_sheet0_row_cell4.getStringCellValue());//F Column: *字段注释
+
+                String comment=workbook1_sheet0_row_cell4.getStringCellValue();
+                if ("省编码".equals(comment)){
+                    comment="附件/信息分类与编码（最新）.zip/《南方电网公司信息分类和编码标准 第5分册 人力资源管理类信息分类和编码.doc》中5.2.组织机构编码\n" +
+                            "南方电网公司及二级单位编码\n" +
+                            "000000=中国南方电网有限责任公司\n" +
+                            "010000=中国南方电网有限责任公司超高压输电公司 \n" +
+                            "020000=中国南方电网有限责任公司调峰调频发电公司 ";
+                }else if ("局编码".equals(comment)){
+                    comment="附件/信息分类与编码（最新）.zip/《南方电网公司信息分类和编码标准 第5分册 人力资源管理类信息分类和编码.doc》中5.2.组织机构编码 中 三级单位编码\n" +
+                            "30600=佛山供电局\n" +
+                            "31900=东莞供电局";
+                }
+                workbook2_sheet1_row.createCell(5).setCellValue(comment);//F Column: *字段注释
                 String dataType=workbook1_sheet0_row_cell5.getStringCellValue();
                 if (dataType.contains("(")){
                     dataType=dataType.substring(0,dataType.indexOf("("));
@@ -145,7 +158,7 @@ public class Atachment1{
                     length=length.replace(".0","");
                 }
                 workbook2_sheet1_row.createCell(7).setCellValue(length);//H Column: *数据长度（没有请填无）
-                workbook2_sheet1_row.createCell(8).setCellValue("更改");//I Column: *操作类型
+                workbook2_sheet1_row.createCell(8).setCellValue("新增");//I Column: *操作类型
                 workbook2_sheet1_row.createCell(9).setCellValue("无");//J Column: *数据精度（没有请填无）
                 workbook2_sheet1_row.createCell(10).setCellValue("是");//K Column: *公司内部是否可共享
                 workbook2_sheet1_row.createCell(11).setCellValue("无条件共享");//L Column: *共享类型（无条件共享/有条件共享/不共享）
@@ -153,7 +166,7 @@ public class Atachment1{
                 workbook2_sheet1_row.createCell(13).setCellValue("有条件开放");//N Column: *开放类型（无条件开放/有条件开放/不开放）
                 workbook2_sheet1_row.createCell(14).setCellValue("通过审核后开放");//O Column: *开放条件（如是有条件开放，无则填无）
                 workbook2_sheet1_row.createCell(15).setCellValue("总部");//P Column: *区域权限（以单位为区域范围）
-                workbook2_sheet1_row.createCell(16).setCellValue("行政部");//Q Column: *部门权限（数据责任部门）
+                workbook2_sheet1_row.createCell(16).setCellValue("办公厅（党组办公室、董事会办公室）");//Q Column: *部门权限（数据责任部门）
                 workbook2_sheet1_row.createCell(17).setCellValue("公司领导、部门领导、主管、一般用户");//R *角色权限（公司领导、部门领导、主管、一般用户）
                 workbook2_sheet1_row.createCell(18).setCellValue("否");//S Column: *共享过程是否脱敏
                 workbook2_sheet1_row.createCell(19).setCellValue("无");//T Column: *脱敏要求
