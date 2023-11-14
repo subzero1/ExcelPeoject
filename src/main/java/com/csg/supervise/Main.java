@@ -1,9 +1,5 @@
 package com.csg.supervise;
 
-import org.openxmlformats.schemas.drawingml.x2006.chart.STGapAmount;
-
-import java.io.IOException;
-
 public class Main {
     private static String fileStr = "D://";
     private static String fileName1 = fileStr + "Sheet1.xlsx";
@@ -32,7 +28,6 @@ public class Main {
         System.out.println("請輸入執行順序:\n1、生成附件8 \n2、生成附件2,6");
         System.out.println("請輸入數字:");
         char i = (char) System.in.read();
-        System.out.println("your char is :" + i);
         String s=String.valueOf(i);
         if (s.equals("1")){
             new Atachment1().initData(fileName1, fileName2);
@@ -40,6 +35,7 @@ public class Main {
             new Atachment2().initData(fileName2, fileName3);
             new Atachment3().initData(fileName2, fileName4);
         }
+        System.out.println("=========================================================");
     }
 
 }
